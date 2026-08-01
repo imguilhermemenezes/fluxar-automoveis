@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-page: #f7f7f7;
+  --color-brand: #F28020;
+  --color-brand-light: #FDF0E4;
+}
+
+body {
+  background-color: var(--color-page);
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+  color: #1a1a1a;
+}

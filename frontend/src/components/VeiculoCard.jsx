@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useConfiguracoes } from '../context/ConfiguracoesContext';
+import IconeWhatsApp from './IconeWhatsApp';
 
 export default function VeiculoCard({ veiculo }) {
   const configuracoes = useConfiguracoes();
@@ -19,7 +20,7 @@ export default function VeiculoCard({ veiculo }) {
 
   return (
     <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden flex flex-col">
-      <div className="aspect-[4/3] bg-gray-100 flex items-center justify-center overflow-hidden">
+      <div className="aspect-[2/1] bg-gray-100 flex items-center justify-center overflow-hidden">
         {imagemPrincipal ? (
           <img
             src={imagemPrincipal.url}
@@ -46,13 +47,14 @@ export default function VeiculoCard({ veiculo }) {
             href={`https://wa.me/${configuracoes?.whatsapp_numero}?text=${mensagem}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center text-sm font-medium border border-green-500 text-green-600 rounded-full py-2 hover:bg-green-50 transition"
+            className="flex-[3] flex items-center justify-center gap-1.5 text-sm font-medium border border-green-500 text-green-600 rounded-full py-2 hover:bg-green-50 transition"
           >
-            WhatsApp
+            <IconeWhatsApp className="w-5 h-5" />
+            Fale no WhatsApp
           </a>
           <Link
             to={`/vitrine/${veiculo.id}`}
-            className="flex-1 text-center text-sm font-medium border border-brand text-brand rounded-full py-2 hover:bg-brand-light transition"
+            className="flex-[2] text-center text-sm font-medium border border-brand text-brand rounded-full py-2 hover:bg-brand-light transition"
           >
             Ver detalhes
           </Link>

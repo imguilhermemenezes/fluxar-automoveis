@@ -1,7 +1,26 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, Tag, Banknote, Handshake } from 'lucide-react';
 
-const brands = ['Volkswagen', 'Jeep', 'Chevrolet', 'Fiat', 'Toyota', 'Volvo', 'Ford', 'Renault'];
+import heroCarro from '../assets/hero-carro.png';
+import volkswagenLogo from '../assets/marcas/volkswagen.png';
+import jeepLogo from '../assets/marcas/jeep.png';
+import chevroletLogo from '../assets/marcas/chevrolet.png';
+import fiatLogo from '../assets/marcas/fiat.png';
+import toyotaLogo from '../assets/marcas/toyota.png';
+import volvoLogo from '../assets/marcas/volvo.png';
+import fordLogo from '../assets/marcas/ford.png';
+import renaultLogo from '../assets/marcas/renault.png';
+
+const marcas = [
+  { nome: 'Volkswagen', logo: volkswagenLogo },
+  { nome: 'Jeep', logo: jeepLogo },
+  { nome: 'Chevrolet', logo: chevroletLogo },
+  { nome: 'Fiat', logo: fiatLogo },
+  { nome: 'Toyota', logo: toyotaLogo },
+  { nome: 'Volvo', logo: volvoLogo },
+  { nome: 'Ford', logo: fordLogo, escala: 1.5 },
+  { nome: 'Renault', logo: renaultLogo },
+];
 
 const services = [
   {
@@ -28,8 +47,8 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 pt-12">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
+      <section className="max-w-7xl mx-auto px-6 pt-12">
+        <div className="grid md:grid-cols-2 gap-10 items-center rounded-3xl p-8 md:p-12 bg-gradient-to-r from-white to-gray-400">
           <div>
             <p className="text-brand font-semibold text-sm mb-3">
               Mais que carros, boas escolhas.
@@ -50,27 +69,26 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Placeholder — entra a foto do veículo em destaque aqui */}
-          <div className="h-64 md:h-96 rounded-3xl bg-white border border-gray-100 flex items-center justify-center">
-            <span className="text-sm text-gray-400">
-              [ imagem do veículo em destaque ]
-            </span>
-          </div>
+          <img
+            src={heroCarro}
+            alt="Veículo em destaque"
+            className="w-full h-auto max-h-72 md:max-h-80 object-contain"
+          />
         </div>
       </section>
 
       {/* Marcas trabalhadas */}
       <section className="max-w-6xl mx-auto px-6 py-14">
-        {/* Placeholder de texto no lugar dos logos reais das marcas —
-            trocar pelos arquivos de logo assim que estiverem disponíveis. */}
-        <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-4">
-          {brands.map((brand) => (
-            <span
-              key={brand}
-              className="text-base font-bold text-gray-400 tracking-wide"
-            >
-              {brand}
-            </span>
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-8">
+          {marcas.map((marca) => (
+            <div key={marca.nome} className="h-10 w-20 md:h-12 md:w-24 flex items-center justify-center">
+              <img
+                src={marca.logo}
+                alt={marca.nome}
+                className="max-h-full max-w-full object-contain opacity-80 hover:opacity-100 transition"
+                style={marca.escala ? { transform: `scale(${marca.escala})` } : undefined}
+              />
+            </div>
           ))}
         </div>
       </section>

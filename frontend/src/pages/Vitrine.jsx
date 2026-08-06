@@ -60,8 +60,8 @@ export default function Vitrine() {
   }, [buscarVeiculos]);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10">
-      <div className="grid md:grid-cols-[260px_1fr] gap-8">
+    <div className="max-w-[1400px] mx-auto px-6 py-10">
+      <div className="grid md:grid-cols-[240px_1fr] gap-6">
         <Filtros
           filtros={filtrosDraft}
           onChange={setFiltrosDraft}

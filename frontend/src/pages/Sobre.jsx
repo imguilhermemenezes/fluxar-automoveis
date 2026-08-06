@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Calendar, Car, ShieldCheck, Eye, Handshake, Award } from 'lucide-react';
+import { Calendar, Car, ShieldCheck, Eye, Handshake, Award, MapPin, Clock } from 'lucide-react';
 import { useConfiguracoes } from '../context/ConfiguracoesContext';
 import { formatarTelefone } from '../utils/formatters';
+import IconeWhatsApp from '../components/IconeWhatsApp';
 import api from '../services/api';
 
 const STATS = [
@@ -17,6 +18,15 @@ const VALORES = [
   { titulo: 'Excelência', descricao: 'Veículos revisados e prontos pra rodar com segurança.', Icon: Award },
 ];
 
+function TituloSecao({ children }) {
+  return (
+    <h2 className="inline-block font-bold text-sm tracking-widest uppercase mb-8 relative pb-3">
+      {children}
+      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-brand" />
+    </h2>
+  );
+}
+
 export default function Sobre() {
   const configuracoes = useConfiguracoes();
   const [fotos, setFotos] = useState([]);
@@ -25,44 +35,76 @@ export default function Sobre() {
     api.get('/fotos-loja').then((res) => setFotos(res.data));
   }, []);
 
+  const fotoHero = fotos[0];
+
   return (
     <div>
       {/* Hero */}
-      <section className="bg-[#1b1b18] text-white">
-        <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight">
+      <section className="max-w-7xl mx-auto px-6 pt-12">
+        <div className="grid md:grid-cols-2 items-center rounded-3xl overflow-hidden bg-[#1b1b18] text-white">
+          <div className="p-6 md:p-8">
+            <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
               Sobre a <span className="text-brand">Fluxar Automóveis.</span>
             </h1>
-            <p className="text-gray-300 mt-4 max-w-md">
-              Há mais de 20 anos construindo relacionamentos e oferecendo as
-              melhores oportunidades para nossos clientes.
+            <p className="text-gray-300 mb-6 max-w-md text-sm">
+              Há 17 anos construindo relacionamentos, realizando sonhos e
+              oferecendo as melhores oportunidades para nossos clientes.
             </p>
-          </div>
-          <div className="h-56 md:h-64 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center">
-            <span className="text-sm text-gray-400">[ foto da loja ]</span>
-          </div>
-        </div>
-      </section>
 
-      {/* Contato rápido */}
-      <section className="max-w-6xl mx-auto px-6">
-        <div className="bg-white border border-gray-100 rounded-2xl -mt-8 md:-mt-10 relative p-6 grid sm:grid-cols-3 gap-4 text-sm text-gray-600 shadow-sm">
-          <p>[ endereço ]</p>
-          <p>{formatarTelefone(configuracoes?.whatsapp_numero)}</p>
-          <p>Seg a Sex: 08:00 às 19:00 · Sáb: 08:00 às 17:00</p>
+            <div className="flex flex-wrap gap-6">
+              <div className="flex items-start gap-2">
+                <MapPin size={16} className="text-brand shrink-0 mt-0.5" />
+                <div className="text-xs leading-relaxed">
+                  <p className="text-gray-200">Av. Vereador Toaldo Túlio, 2072</p>
+                  <p className="text-gray-400">Santa Felicidade - Curitiba</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <IconeWhatsApp className="w-4 h-4 text-brand shrink-0 mt-0.5" />
+                <div className="text-xs leading-relaxed">
+                  <p className="text-gray-200">{formatarTelefone(configuracoes?.whatsapp_numero)}</p>
+                  <p className="text-gray-400">Whatsapp</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-2">
+                <Clock size={16} className="text-brand shrink-0 mt-0.5" />
+                <div className="text-xs leading-relaxed">
+                  <p className="text-gray-200">Seg à Sex: 08:00 às 19:00</p>
+                  <p className="text-gray-400">Sáb: 08:30 às 17:00</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="h-56 md:h-full">
+            {fotoHero ? (
+              <img
+                src={fotoHero.url}
+                alt="Fluxar Automóveis"
+                className="w-full h-full object-cover"
+                style={{
+                  maskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
+                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
+                }}
+              />
+            ) : (
+              <div className="w-full h-full bg-white/10 flex items-center justify-center">
+                <span className="text-sm text-gray-400">[ foto da loja ]</span>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
       {/* Nossa história */}
-      <section className="max-w-6xl mx-auto px-6 pt-14">
-        <div className="grid md:grid-cols-[1fr_360px] gap-10 items-start">
+      <section className="max-w-6xl mx-auto px-6 py-14">
+        <div className="grid md:grid-cols-2 gap-10 items-start">
           <div>
             <h2 className="font-semibold text-brand mb-1">Nossa história</h2>
             <h3 className="text-2xl font-extrabold mb-4">
               Mais do que vender carros, construímos confiança.
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 text-base">
               A Fluxar Automóveis nasceu com o propósito de oferecer veículos de
               qualidade, procedência garantida e um atendimento próximo, sem
               complicação. Aqui, cada negociação é conduzida com transparência —
@@ -70,17 +112,15 @@ export default function Sobre() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 md:grid-cols-1 gap-3">
+          <div className="grid grid-cols-3 gap-4">
             {STATS.map(({ valor, label, Icon }) => (
               <div
                 key={label}
-                className="bg-white border border-gray-100 rounded-2xl p-4 text-center md:text-left md:flex md:items-center md:gap-3"
+                className="bg-white border border-gray-100 rounded-2xl p-6 text-center"
               >
-                <Icon size={20} className="text-brand mx-auto md:mx-0 mb-2 md:mb-0" />
-                <div>
-                  <p className="font-extrabold text-lg">{valor}</p>
-                  <p className="text-xs text-gray-500">{label}</p>
-                </div>
+                <Icon size={28} className="text-brand mx-auto mb-3" />
+                <p className="font-extrabold text-3xl">{valor}</p>
+                <p className="text-sm text-gray-500">{label}</p>
               </div>
             ))}
           </div>
@@ -89,36 +129,58 @@ export default function Sobre() {
 
       {/* Nossos valores */}
       <section className="max-w-6xl mx-auto px-6 py-14 text-center">
-        <h2 className="font-semibold mb-8">Nossos valores</h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-          {VALORES.map(({ titulo, descricao, Icon }) => (
-            <div key={titulo} className="bg-white border border-gray-100 rounded-2xl p-5">
-              <div className="w-11 h-11 rounded-full bg-brand-light flex items-center justify-center mx-auto mb-3">
-                <Icon size={20} className="text-brand" />
+        <TituloSecao>Nossos valores</TituloSecao>
+        <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 md:p-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+            {VALORES.map(({ titulo, descricao, Icon }) => (
+              <div key={titulo} className="bg-white border border-gray-100 rounded-2xl p-5">
+                <div className="w-11 h-11 rounded-full bg-brand-light flex items-center justify-center mx-auto mb-3">
+                  <Icon size={20} className="text-brand" />
+                </div>
+                <h3 className="font-semibold mb-1">{titulo}</h3>
+                <p className="text-xs text-gray-500">{descricao}</p>
               </div>
-              <h3 className="font-semibold mb-1">{titulo}</h3>
-              <p className="text-xs text-gray-500">{descricao}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Conheça nossa loja */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 text-center">
-        <h2 className="font-semibold mb-8">Conheça nossa loja</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {fotos.length > 0
-            ? fotos.map((foto) => (
-                <div key={foto.id} className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
-                  <img src={foto.url} alt="Fluxar Automóveis" className="w-full h-full object-cover" />
-                </div>
-              ))
-            : [1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="aspect-square bg-gray-100 rounded-xl flex items-center justify-center">
-                  <span className="text-xs text-gray-400">[ foto {i} ]</span>
-                </div>
-              ))}
-        </div>
+      <section className="max-w-7xl mx-auto px-6 pb-16 text-center">
+        <TituloSecao>Conheça nossa loja</TituloSecao>
+
+        {fotos.length === 0 && (
+          <p className="text-sm text-gray-400">Nenhuma foto cadastrada ainda.</p>
+        )}
+
+        {fotos.length > 0 && fotos.length < 5 && (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {fotos.map((foto) => (
+              <div key={foto.id} className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
+                <img src={foto.url} alt="Fluxar Automóveis" className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {fotos.length >= 5 && (
+          <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 h-[300px] md:h-[380px]">
+            {fotos.slice(0, 5).map((foto, i) => (
+              <div
+                key={foto.id}
+                className={`rounded-xl overflow-hidden bg-gray-100 ${
+                  i === 0 ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'
+                }`}
+              >
+                <img 
+                  src={foto.url} 
+                  alt="Fluxar Automóveis" 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );

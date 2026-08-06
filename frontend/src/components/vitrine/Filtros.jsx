@@ -1,3 +1,5 @@
+import { SlidersHorizontal } from 'lucide-react';
+
 const FAIXAS_KM = [
   { label: 'Até 30.000 Km', valor: 30000 },
   { label: 'Até 60.000 Km', valor: 60000 },
@@ -21,7 +23,10 @@ export default function Filtros({ filtros, onChange, onAplicar, onLimpar }) {
 
   return (
     <aside className="bg-white border border-gray-100 rounded-2xl p-5 h-fit">
-      <h2 className="font-semibold mb-4">Filtros</h2>
+      <h2 className="font-semibold mb-4 flex items-center gap-2">
+        <SlidersHorizontal size={18} className="text-brand" />
+        Filtros
+      </h2>
 
       <div className="space-y-5">
         <div>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import {
-  MessageCircle,
   ShieldCheck,
   Tag,
   Car,
@@ -18,6 +17,7 @@ import {
 } from 'lucide-react';
 import api from '../services/api';
 import { useConfiguracoes } from '../context/ConfiguracoesContext';
+import IconeWhatsApp from '../components/IconeWhatsApp';
 
 const STATUS = {
   disponivel: { label: 'Disponível', className: 'bg-brand-light text-brand' },
@@ -151,7 +151,7 @@ export default function VeiculoDetalhes() {
             rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 border-2 border-green-500 text-green-600 font-semibold rounded-xl py-3 mb-3 hover:bg-green-50 transition"
           >
-            <MessageCircle size={18} />
+            <IconeWhatsApp className="w-[18px] h-[18px]" />
             <span>
               Falar no WhatsApp
               <span className="block text-xs font-normal">Conversar sobre este veículo</span>

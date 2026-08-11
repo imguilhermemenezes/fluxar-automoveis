@@ -48,8 +48,31 @@ export default function Perfil() {
   const [salvandoWhatsapp, setSalvandoWhatsapp] = useState(false);
   const [sucessoWhatsapp, setSucessoWhatsapp] = useState(false);
 
+  const formatarWhatsapp = (valor) => {
+    const numeros = valor.replace(/\D/g, '').slice(0, 11);
+    if (numeros.length === 0) {
+      return '';
+    }
+    if (numeros.length <= 2) {
+      return `(${numeros}`;
+    }
+    if (numeros.length <= 3) {
+      return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+    }
+    if (numeros.length <= 7) {
+      return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 3)} ${numeros.slice(3)}`;
+    }
+    return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 3)} ${numeros.slice(3, 7)}-${numeros.slice(7, 11)}`;
+  };
+
   useEffect(() => {
-    if (configuracoes?.whatsapp_numero) setWhatsapp(configuracoes.whatsapp_numero);
+    if (configuracoes?.whatsapp_numero) {
+      let numero = configuracoes.whatsapp_numero.replace(/\D/g, '');
+      if (numero.startsWith('55') && numero.length === 13) {
+        numero = numero.slice(2);
+      }
+      setWhatsapp(numero);
+    }
   }, [configuracoes]);
 
   const salvarWhatsapp = async (e) => {
@@ -57,7 +80,11 @@ export default function Perfil() {
     setSalvandoWhatsapp(true);
     setSucessoWhatsapp(false);
     try {
-      await api.put('/configuracoes', { whatsapp_numero: whatsapp });
+      const numero = whatsapp.replace(/\D/g, '');
+      const numeroCompleto = `55${numero}`;
+      await api.put('/configuracoes', {
+        whatsapp_numero: numeroCompleto,
+      });
       setSucessoWhatsapp(true);
     } finally {
       setSalvandoWhatsapp(false);
@@ -177,18 +204,31 @@ export default function Perfil() {
       </form>
 
       {/* WhatsApp */}
-      <form onSubmit={salvarWhatsapp} className="bg-white border border-gray-100 rounded-2xl p-6">
-        <h2 className="font-semibold mb-4">WhatsApp da concessionária</h2>
-        <label className="block text-sm font-medium mb-1.5">
-          Número (com DDI e DDD, só números)
-        </label>
+      <form onSubmit={salvarWhatsapp} className="bg-white border border-gray-100 rounded-2xl p-6 mb-6">
+        <h2 className="font-semibold mb-1">WhatsApp da concessionária</h2>
+        <p className="text-xs text-gray-400 mb-4">Informe o número de WhatsApp da concessionária.</p>
+        <label className="block text-sm font-medium mb-1.5">Número</label>
         <input
-          value={whatsapp}
-          onChange={(e) => setWhatsapp(e.target.value)}
-          placeholder="Ex: 5541988660000"
+          type="tel"
+          value={formatarWhatsapp(whatsapp)}
+          onChange={(e) => {
+            const numeros = e.target.value
+              .replace(/\D/g, '')
+              .slice(0, 11);
+
+            setWhatsapp(numeros);
+          }}
+          placeholder="Ex: (61) 9 5821-5252"
+          maxLength={16}
           className="w-full sm:w-72 border border-gray-200 rounded-lg px-3 py-2 text-sm mb-4"
         />
-        {sucessoWhatsapp && <p className="text-sm text-green-600 mb-3">Número atualizado!</p>}
+
+        {sucessoWhatsapp && (
+          <p className="text-sm text-green-600 mb-3">
+            Número atualizado!
+          </p>
+        )}
+
         <div>
           <button
             type="submit"

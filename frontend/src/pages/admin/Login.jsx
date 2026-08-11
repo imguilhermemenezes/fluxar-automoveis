@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logoFluxar from '../../assets/logo-fluxar-branca.png';
 
 export default function Login() {
   const { usuario, login } = useAuth();
@@ -36,12 +37,7 @@ export default function Login() {
     <div className="min-h-screen grid md:grid-cols-2">
       <div className="hidden md:flex flex-col justify-between bg-[#1b1b18] text-white p-10">
         <div>
-          <span className="text-2xl font-extrabold tracking-tight">
-            FLU<span className="text-brand">X</span>AR
-          </span>
-          <span className="block text-[10px] font-semibold tracking-[0.2em] text-gray-400 mt-0.5">
-            AUTOMÓVEIS
-          </span>
+          <img src={logoFluxar} alt="Fluxar Automóveis" className="h-9 w-auto" />
         </div>
         <div>
           <h1 className="text-3xl font-extrabold mb-2">

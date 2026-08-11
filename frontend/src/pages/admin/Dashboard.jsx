@@ -26,7 +26,10 @@ export default function Dashboard() {
     { label: 'Ofertas ativas', valor: dados.ofertas_ativas, sub: 'Veículos em promoção', Icon: Tag },
   ];
 
-  const ultimosVeiculos = dados?.ultimos_veiculos?.data ?? [];
+  const ultimosVeiculosRaw = dados?.ultimos_veiculos;
+  const ultimosVeiculos = Array.isArray(ultimosVeiculosRaw)
+    ? ultimosVeiculosRaw
+    : ultimosVeiculosRaw?.data ?? [];
 
   return (
     <div className="p-6 md:p-10">

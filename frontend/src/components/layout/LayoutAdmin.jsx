@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Home, Car, User, LogOut } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import logoFluxar from '../../assets/logo-fluxar.png';
 
 const links = [
   { to: '/admin', label: 'Início', Icon: Home },
@@ -13,15 +14,10 @@ export default function LayoutAdmin({ children }) {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen flex">
-      <aside className="w-56 bg-white border-r border-gray-100 flex flex-col shrink-0">
+    <div className="h-screen flex">
+      <aside className="w-56 bg-white border-r border-gray-100 flex flex-col shrink-0 overflow-y-auto">
         <div className="p-6">
-          <span className="text-xl font-extrabold tracking-tight">
-            FLU<span className="text-brand">X</span>AR
-          </span>
-          <span className="block text-[9px] font-semibold tracking-[0.2em] text-gray-500">
-            AUTOMÓVEIS
-          </span>
+          <img src={logoFluxar} alt="Fluxar Automóveis" className="h-9 w-auto" />
         </div>
 
         <nav className="flex-1 px-3 space-y-1">
@@ -56,7 +52,7 @@ export default function LayoutAdmin({ children }) {
         </div>
       </aside>
 
-      <main className="flex-1 min-w-0">{children}</main>
+      <main className="flex-1 min-w-0 overflow-y-auto">{children}</main>
     </div>
   );
 }

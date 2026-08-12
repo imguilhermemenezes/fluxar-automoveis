@@ -35,7 +35,7 @@ export default function GerenciadorImagens({ veiculoId, imagens, aoAtualizar }) 
   };
 
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl p-6">
+    <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
       <h2 className="font-semibold mb-4">Fotos do veículo</h2>
 
       {imagens.length > 0 && (
@@ -50,7 +50,9 @@ export default function GerenciadorImagens({ veiculoId, imagens, aoAtualizar }) 
                 </span>
               )}
 
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-2">
+              {/* No mobile os botões ficam sempre visíveis (não dá pra confiar em :hover no toque);
+                  a partir do md, viram um overlay que só aparece ao passar o mouse */}
+              <div className="absolute inset-0 bg-black/40 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition flex items-center justify-center gap-2">
                 {!img.principal && (
                   <button
                     type="button"

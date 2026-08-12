@@ -40,7 +40,7 @@ export default function Sobre() {
   return (
     <div>
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 pt-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 md:pt-12">
         <div className="grid md:grid-cols-2 items-center rounded-3xl overflow-hidden bg-[#1b1b18] text-white">
           <div className="p-6 md:p-8">
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-4">
@@ -51,7 +51,7 @@ export default function Sobre() {
               oferecendo as melhores oportunidades para nossos clientes.
             </p>
 
-            <div className="flex flex-wrap gap-6">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-6">
               <div className="flex items-start gap-2">
                 <MapPin size={16} className="text-brand shrink-0 mt-0.5" />
                 <div className="text-xs leading-relaxed">
@@ -81,11 +81,7 @@ export default function Sobre() {
               <img
                 src={fotoHero.url}
                 alt="Fluxar Automóveis"
-                className="w-full h-full object-cover"
-                style={{
-                  maskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
-                  WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%)',
-                }}
+                className="w-full h-full object-cover md:[mask-image:linear-gradient(to_right,transparent_0%,black_30%)] md:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_30%)]"
               />
             ) : (
               <div className="w-full h-full bg-white/10 flex items-center justify-center">
@@ -97,8 +93,8 @@ export default function Sobre() {
       </section>
 
       {/* Nossa história */}
-      <section className="max-w-6xl mx-auto px-6 py-14">
-        <div className="grid md:grid-cols-2 gap-10 items-start">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-start">
           <div>
             <h2 className="font-semibold text-brand mb-1">Nossa história</h2>
             <h3 className="text-2xl font-extrabold mb-4">
@@ -112,7 +108,7 @@ export default function Sobre() {
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {STATS.map(({ valor, label, Icon }) => (
               <div
                 key={label}
@@ -128,9 +124,9 @@ export default function Sobre() {
       </section>
 
       {/* Nossos valores */}
-      <section className="max-w-6xl mx-auto px-6 py-14 text-center">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 md:py-14 text-center">
         <TituloSecao>Nossos valores</TituloSecao>
-        <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 md:p-8">
+        <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5 sm:p-6 md:p-8">
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
             {VALORES.map(({ titulo, descricao, Icon }) => (
               <div key={titulo} className="bg-white border border-gray-100 rounded-2xl p-5">
@@ -146,7 +142,7 @@ export default function Sobre() {
       </section>
 
       {/* Conheça nossa loja */}
-      <section className="max-w-7xl mx-auto px-6 pb-16 text-center">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-10 md:pb-16 text-center">
         <TituloSecao>Conheça nossa loja</TituloSecao>
 
         {fotos.length === 0 && (
@@ -164,18 +160,20 @@ export default function Sobre() {
         )}
 
         {fotos.length >= 5 && (
-          <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-3 h-[300px] md:h-[380px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:grid-rows-2 md:h-[380px]">
             {fotos.slice(0, 5).map((foto, i) => (
               <div
                 key={foto.id}
                 className={`rounded-xl overflow-hidden bg-gray-100 ${
-                  i === 0 ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1'
+                  i === 0
+                    ? 'col-span-2 aspect-[16/9] md:aspect-auto md:row-span-2'
+                    : 'aspect-square md:aspect-auto'
                 }`}
               >
-                <img 
-                  src={foto.url} 
-                  alt="Fluxar Automóveis" 
-                  className="w-full h-full object-cover" 
+                <img
+                  src={foto.url}
+                  alt="Fluxar Automóveis"
+                  className="w-full h-full object-cover"
                 />
               </div>
             ))}

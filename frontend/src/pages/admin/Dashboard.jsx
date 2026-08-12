@@ -32,8 +32,8 @@ export default function Dashboard() {
     : ultimosVeiculosRaw?.data ?? [];
 
   return (
-    <div className="p-6 md:p-10">
-      <h1 className="text-2xl font-extrabold mb-1">Bem-vindo ao CMS da Fluxar</h1>
+    <div className="p-4 sm:p-6 md:p-10">
+      <h1 className="text-xl sm:text-2xl font-extrabold mb-1">Bem-vindo ao CMS da Fluxar</h1>
       <p className="text-gray-500 mb-8">Gerencie os veículos que aparecem na vitrine do site.</p>
 
       {carregando && <p className="text-sm text-gray-500">Carregando...</p>}
@@ -53,7 +53,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      <div className="bg-brand-light rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+      <div className="bg-brand-light rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <p className="font-semibold">Cadastrar novo veículo</p>
           <p className="text-sm text-gray-600">
@@ -62,14 +62,14 @@ export default function Dashboard() {
         </div>
         <Link
           to="/admin/veiculos/novo"
-          className="inline-flex items-center gap-2 bg-brand text-white font-semibold px-5 py-2.5 rounded-full hover:brightness-95 transition shrink-0"
+          className="w-full sm:w-auto justify-center inline-flex items-center gap-2 bg-brand text-white font-semibold px-5 py-2.5 rounded-full hover:brightness-95 transition shrink-0"
         >
           <Plus size={16} />
           Cadastrar veículo
         </Link>
       </div>
 
-      <div className="bg-white border border-gray-100 rounded-2xl p-6">
+      <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold">Últimos veículos cadastrados</h2>
           <Link to="/admin/veiculos" className="text-sm text-brand font-medium">
@@ -82,7 +82,7 @@ export default function Dashboard() {
         )}
 
         {ultimosVeiculos.length > 0 && (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left text-gray-400 border-b border-gray-100">

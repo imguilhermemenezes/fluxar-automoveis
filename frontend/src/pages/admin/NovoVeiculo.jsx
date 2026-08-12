@@ -18,7 +18,7 @@ export default function NovoVeiculo() {
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-3xl">
+    <div className="p-4 sm:p-6 md:p-10 max-w-3xl">
       <h1 className="text-2xl font-extrabold mb-1">Cadastrar veículo</h1>
       <p className="text-gray-500 text-sm mb-6">
         Depois de salvar os dados, você vai poder adicionar as fotos.

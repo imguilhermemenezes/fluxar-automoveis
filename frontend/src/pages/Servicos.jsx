@@ -105,7 +105,7 @@ export default function Servicos() {
   return (
     <div>
       {/* Hero */}
-      <section className="max-w-7xl mx-auto px-6 pt-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 md:pt-12">
         <div className="grid md:grid-cols-2 items-center rounded-3xl overflow-hidden bg-gradient-to-r from-gray-50 to-gray-300">
           <div className="p-6 md:p-8 relative z-10">
             <h1 className="text-2xl md:text-3xl font-extrabold leading-tight mb-3">
@@ -115,16 +115,16 @@ export default function Servicos() {
             <p className="text-gray-600 mb-5 max-w-md text-sm">
               Na Fluxar Automóveis, você tem as melhores condições pra negociar seu carro.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3">
               <button
                 onClick={() => irParaFormulario('vender')}
-                className="bg-brand text-white font-semibold px-6 py-2.5 rounded-full hover:brightness-95 transition"
+                className="w-full sm:w-auto bg-brand text-white font-semibold px-6 py-2.5 rounded-full hover:brightness-95 transition"
               >
                 Quero vender meu carro
               </button>
               <button
                 onClick={() => irParaFormulario('consignar')}
-                className="bg-white border border-brand text-brand font-semibold px-6 py-2.5 rounded-full hover:bg-brand-light transition"
+                className="w-full sm:w-auto bg-white border border-brand text-brand font-semibold px-6 py-2.5 rounded-full hover:bg-brand-light transition"
               >
                 Quero consignar meu carro
               </button>
@@ -134,17 +134,13 @@ export default function Servicos() {
           <img
             src={chavesImg}
             alt="Entrega de chaves"
-            className="w-full h-40 md:h-full object-cover"
-            style={{
-              maskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 40%)',
-            }}
+            className="w-full h-40 sm:h-48 md:h-full object-cover md:[mask-image:linear-gradient(to_right,transparent_0%,black_40%)] md:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_40%)]"
           />
         </div>
       </section>
 
       {/* Venda direta / Consignação */}
-      <section className="max-w-7xl mx-auto px-6 py-14 grid md:grid-cols-2 gap-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-14 grid md:grid-cols-2 gap-4">
         <div className="bg-brand-light rounded-2xl overflow-hidden grid sm:grid-cols-[3fr_2fr]">
           <div className="p-5">
             <div className="w-9 h-9 rounded-full bg-brand flex items-center justify-center mb-3">
@@ -205,7 +201,7 @@ export default function Servicos() {
       </section>
 
       {/* Como funciona */}
-      <section className="max-w-7xl mx-auto px-6 pb-14">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-8 md:pb-14">
         <h2 className="text-center font-semibold mb-8">Como funciona</h2>
         <div className="space-y-8">
           <Passos titulo="Venda direta pra Fluxar" passos={PASSOS_VENDA} />
@@ -214,8 +210,8 @@ export default function Servicos() {
       </section>
 
       {/* Formulário */}
-      <section ref={formRef} className="max-w-7xl mx-auto px-6 pb-16">
-        <div className="bg-white border border-gray-100 rounded-2xl p-6 md:p-10 grid md:grid-cols-[300px_1fr] gap-10">
+      <section ref={formRef} className="max-w-7xl mx-auto px-4 sm:px-6 pb-10 md:pb-16">
+        <div className="bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 md:p-10 grid md:grid-cols-[300px_1fr] gap-6 md:gap-10">
           <div>
             <p className="text-brand font-semibold text-sm mb-2">Comece agora</p>
             <h2 className="text-2xl font-extrabold mb-3 leading-tight">
@@ -234,11 +230,11 @@ export default function Servicos() {
           </div>
 
           <div>
-            <div className="flex flex-wrap gap-3 mb-6">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-6">
               <button
                 type="button"
                 onClick={() => setModo('vender')}
-                className={`text-sm font-semibold px-4 py-2 rounded-full transition ${
+                className={`w-full sm:w-auto text-sm font-semibold px-4 py-2 rounded-full transition ${
                   modo === 'vender' ? 'bg-brand text-white' : 'border border-gray-200 text-gray-600'
                 }`}
               >
@@ -247,7 +243,7 @@ export default function Servicos() {
               <button
                 type="button"
                 onClick={() => setModo('consignar')}
-                className={`text-sm font-semibold px-4 py-2 rounded-full transition ${
+                className={`w-full sm:w-auto text-sm font-semibold px-4 py-2 rounded-full transition ${
                   modo === 'consignar' ? 'bg-brand text-white' : 'border border-gray-200 text-gray-600'
                 }`}
               >
@@ -278,7 +274,7 @@ export default function Servicos() {
 
               <textarea value={campos.observacoes} onChange={(e) => set('observacoes', e.target.value)} placeholder="Observações (opcional)" rows={3} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
 
-              <button type="submit" className="bg-brand text-white font-semibold px-6 py-3 rounded-full hover:brightness-95 transition">
+              <button type="submit" className="w-full sm:w-auto bg-brand text-white font-semibold px-6 py-3 rounded-full hover:brightness-95 transition">
                 Enviar informações
               </button>
             </form>

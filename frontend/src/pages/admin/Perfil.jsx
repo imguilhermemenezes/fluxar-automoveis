@@ -122,7 +122,7 @@ export default function Perfil() {
   };
 
   return (
-    <div className="p-6 md:p-10 max-w-3xl space-y-6">
+    <div className="p-4 sm:p-6 md:p-10 max-w-3xl space-y-6">
       <div>
         <h1 className="text-2xl font-extrabold mb-1">Perfil e configurações</h1>
         <p className="text-gray-500 text-sm">
@@ -131,7 +131,7 @@ export default function Perfil() {
       </div>
 
       {/* Meus dados */}
-      <form onSubmit={salvarPerfil} className="bg-white border border-gray-100 rounded-2xl p-6">
+      <form onSubmit={salvarPerfil} className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <h2 className="font-semibold mb-1">Meus dados</h2>
         <p className="text-xs text-gray-400 mb-4">
           Pra trocar o e-mail ou a senha, informa sua senha atual por segurança.
@@ -159,7 +159,7 @@ export default function Perfil() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-4 mb-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
           <div>
             <label className="block text-sm font-medium mb-1.5">Senha atual</label>
             <input
@@ -197,14 +197,14 @@ export default function Perfil() {
         <button
           type="submit"
           disabled={salvandoPerfil}
-          className="bg-brand text-white font-semibold px-5 py-2.5 rounded-full text-sm hover:brightness-95 transition disabled:opacity-60"
+          className="w-full sm:w-auto bg-brand text-white font-semibold px-5 py-2.5 rounded-full text-sm hover:brightness-95 transition disabled:opacity-60"
         >
           {salvandoPerfil ? 'Salvando...' : 'Salvar dados'}
         </button>
       </form>
 
       {/* WhatsApp */}
-      <form onSubmit={salvarWhatsapp} className="bg-white border border-gray-100 rounded-2xl p-6 mb-6">
+      <form onSubmit={salvarWhatsapp} className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6 mb-6">
         <h2 className="font-semibold mb-1">WhatsApp da concessionária</h2>
         <p className="text-xs text-gray-400 mb-4">Informe o número de WhatsApp da concessionária.</p>
         <label className="block text-sm font-medium mb-1.5">Número</label>
@@ -233,7 +233,7 @@ export default function Perfil() {
           <button
             type="submit"
             disabled={salvandoWhatsapp}
-            className="bg-brand text-white font-semibold px-5 py-2.5 rounded-full text-sm hover:brightness-95 transition disabled:opacity-60"
+            className="w-full sm:w-auto bg-brand text-white font-semibold px-5 py-2.5 rounded-full text-sm hover:brightness-95 transition disabled:opacity-60"
           >
             {salvandoWhatsapp ? 'Salvando...' : 'Salvar número'}
           </button>
@@ -241,7 +241,7 @@ export default function Perfil() {
       </form>
 
       {/* Fotos da loja */}
-      <div className="bg-white border border-gray-100 rounded-2xl p-6">
+      <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <h2 className="font-semibold mb-1">Fotos da loja</h2>
         <p className="text-xs text-gray-400 mb-4">
           Aparecem na seção "Conheça nossa loja" da página Sobre.
@@ -255,7 +255,7 @@ export default function Perfil() {
                 <button
                   type="button"
                   onClick={() => excluirFoto(foto.id)}
-                  className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center"
+                  className="absolute inset-0 bg-black/40 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition flex items-center justify-center"
                 >
                   <Trash2 size={16} className="text-white" />
                 </button>

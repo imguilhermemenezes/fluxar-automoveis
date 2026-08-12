@@ -34,15 +34,15 @@ export default function EditarVeiculo() {
   };
 
   if (carregando) {
-    return <p className="p-10 text-sm text-gray-500">Carregando...</p>;
+    return <p className="p-6 sm:p-10 text-sm text-gray-500">Carregando...</p>;
   }
 
   if (!veiculo) {
-    return <p className="p-10 text-sm text-red-600">Veículo não encontrado.</p>;
+    return <p className="p-6 sm:p-10 text-sm text-red-600">Veículo não encontrado.</p>;
   }
 
   return (
-    <div className="p-6 md:p-10 max-w-3xl space-y-6">
+    <div className="p-4 sm:p-6 md:p-10 max-w-3xl space-y-6">
       <div>
         <h1 className="text-2xl font-extrabold mb-1">Editar veículo</h1>
         <p className="text-gray-500 text-sm">

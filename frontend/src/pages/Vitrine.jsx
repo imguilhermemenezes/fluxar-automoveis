@@ -60,8 +60,8 @@ export default function Vitrine() {
   }, [buscarVeiculos]);
 
   return (
-    <div className="max-w-[1400px] mx-auto px-6 py-10">
-      <div className="grid md:grid-cols-[240px_1fr] gap-6">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 md:py-10">
+      <div className="grid md:grid-cols-[240px_1fr] gap-4 md:gap-6">
         <Filtros
           filtros={filtrosDraft}
           onChange={setFiltrosDraft}
@@ -74,7 +74,7 @@ export default function Vitrine() {
 
         <div>
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
-            <div className="relative flex-1 max-w-sm">
+            <div className="relative flex-1 sm:max-w-sm">
               <Search
                 size={16}
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -89,7 +89,7 @@ export default function Vitrine() {
               />
             </div>
 
-            <div className="flex items-center gap-3 text-sm">
+            <div className="flex items-center justify-between sm:justify-start gap-3 text-sm">
               <span className="text-brand font-medium whitespace-nowrap">
                 {total} veículo{total === 1 ? '' : 's'} encontrado{total === 1 ? '' : 's'}
               </span>

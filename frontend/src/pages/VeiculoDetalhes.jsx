@@ -14,6 +14,8 @@ import {
   Wrench,
   BadgeCheck,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import api from '../services/api';
 import { useConfiguracoes } from '../context/ConfiguracoesContext';
@@ -46,7 +48,7 @@ export default function VeiculoDetalhes() {
 
   if (loading) {
     return (
-      <p className="max-w-6xl mx-auto px-6 py-10 text-sm text-gray-500">
+      <p className="max-w-6xl mx-auto px-4 sm:px-6 py-10 text-sm text-gray-500">
         Carregando...
       </p>
     );
@@ -54,7 +56,7 @@ export default function VeiculoDetalhes() {
 
   if (erro || !veiculo) {
     return (
-      <p className="max-w-6xl mx-auto px-6 py-10 text-sm text-red-600">
+      <p className="max-w-6xl mx-auto px-4 sm:px-6 py-10 text-sm text-red-600">
         {erro ?? 'Veículo não encontrado.'}
       </p>
     );
@@ -69,6 +71,11 @@ export default function VeiculoDetalhes() {
   const nomeCompleto = [veiculo.marca, veiculo.modelo, veiculo.versao].filter(Boolean).join(' ');
   const mensagem = encodeURIComponent(`Olá! Tenho interesse no ${nomeCompleto}`);
   const imagens = veiculo.imagens ?? [];
+
+  const irParaAnterior = () =>
+    setImagemAtual((i) => (i - 1 + imagens.length) % imagens.length);
+  const irParaProxima = () =>
+    setImagemAtual((i) => (i + 1) % imagens.length);
 
   const especificacoes = [
     { label: 'Marca', valor: veiculo.marca, Icon: Tag },
@@ -90,7 +97,7 @@ export default function VeiculoDetalhes() {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8">
       <nav className="text-sm text-gray-500 mb-6">
         <Link to="/" className="hover:text-brand">Home</Link>
         <span className="mx-2">/</span>
@@ -101,49 +108,91 @@ export default function VeiculoDetalhes() {
         </span>
       </nav>
 
-      <div className="grid md:grid-cols-[1fr_360px] gap-8">
-        {/* Galeria */}
-        <div className="min-w-0 w-full space-y-3">
-          <div className="aspect-[4/3] bg-gray-100 rounded-2xl min-w-0 w-full overflow-hidden flex items-center justify-center">
-            {imagens.length > 0 ? (
-              <img
-                src={imagens[imagemAtual]?.url}
-                alt={nomeCompleto}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <span className="text-sm text-gray-400">[ galeria de fotos do veículo ]</span>
+      <div className="grid gap-6 md:gap-8 md:grid-cols-[1fr_360px] items-start">
+        {/* Galeria + Descrição */}
+        <div className="min-w-0 w-full md:col-start-1">
+          <div className="space-y-3">
+            <div className="relative aspect-[16/9] bg-gray-100 rounded-2xl min-w-0 w-full overflow-hidden flex items-center justify-center">
+              {imagens.length > 0 ? (
+                <img
+                  src={imagens[imagemAtual]?.url}
+                  alt={nomeCompleto}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-sm text-gray-400">[ galeria de fotos do veículo ]</span>
+              )}
+
+              {imagens.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={irParaAnterior}
+                    aria-label="Foto anterior"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-sm transition"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={irParaProxima}
+                    aria-label="Próxima foto"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-sm transition"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {imagens.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto">
+                {imagens.map((img, i) => (
+                  <button
+                    key={img.id}
+                    onClick={() => setImagemAtual(i)}
+                    className={`w-16 h-16 rounded-lg overflow-hidden shrink-0 border-2 transition ${
+                      i === imagemAtual ? 'border-brand' : 'border-transparent'
+                    }`}
+                  >
+                    <img src={img.url} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 
-          {imagens.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto">
-              {imagens.map((img, i) => (
-                <button
-                  key={img.id}
-                  onClick={() => setImagemAtual(i)}
-                  className={`w-16 h-16 rounded-lg overflow-hidden shrink-0 border-2 transition ${
-                    i === imagemAtual ? 'border-brand' : 'border-transparent'
-                  }`}
-                >
-                  <img src={img.url} alt="" className="w-full h-full object-cover" />
-                </button>
+          {/* Descrição */}
+          <div className="mt-6">
+            <h2 className="font-semibold mb-3">Descrição do veículo</h2>
+            <p className="text-sm text-gray-600 whitespace-pre-line mb-6">
+              {veiculo.descricao || 'Sem descrição cadastrada para este veículo ainda.'}
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              {selos.map(({ label, Icon }) => (
+                <div key={label} className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-full bg-brand-light flex items-center justify-center shrink-0">
+                    <Icon size={16} className="text-brand" />
+                  </div>
+                  <span className="text-sm text-gray-600">{label}</span>
+                </div>
               ))}
             </div>
-          )}
+          </div>
         </div>
 
         {/* Info principal */}
-        <div>
+        <div className="md:col-start-2">
           <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-3 ${status.className}`}>
             {status.label}
           </span>
-          <h1 className="text-2xl font-extrabold mb-1">{nomeCompleto}</h1>
+          <h1 className="text-xl sm:text-2xl font-extrabold mb-1">{nomeCompleto}</h1>
           <p className="text-gray-500 mb-1">
             {veiculo.ano} • {veiculo.cambio} • {veiculo.combustivel}
           </p>
           <p className="text-gray-500 mb-4">{km} Km</p>
-          <p className="text-3xl font-bold text-brand mb-5">{preco}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-brand mb-5">{preco}</p>
 
           <a
             href={`https://wa.me/${configuracoes?.whatsapp_numero}?text=${mensagem}`}
@@ -185,25 +234,6 @@ export default function VeiculoDetalhes() {
               </div>
             ))}
           </dl>
-        </div>
-      </div>
-
-      {/* Descrição */}
-      <div className="mt-10 max-w-3xl">
-        <h2 className="font-semibold mb-3">Descrição do veículo</h2>
-        <p className="text-sm text-gray-600 whitespace-pre-line mb-6">
-          {veiculo.descricao || 'Sem descrição cadastrada para este veículo ainda.'}
-        </p>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {selos.map(({ label, Icon }) => (
-            <div key={label} className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-full bg-brand-light flex items-center justify-center shrink-0">
-                <Icon size={16} className="text-brand" />
-              </div>
-              <span className="text-sm text-gray-600">{label}</span>
-            </div>
-          ))}
         </div>
       </div>
     </div>

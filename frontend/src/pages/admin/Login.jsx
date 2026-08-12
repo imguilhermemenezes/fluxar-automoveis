@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import logoFluxar from '../../assets/logo-fluxar-branca.png';
+import logoFluxarBranca from '../../assets/logo-fluxar-branca.png';
+import logoFluxar from '../../assets/logo-fluxar.png';
 
 export default function Login() {
   const { usuario, login } = useAuth();
@@ -37,7 +38,7 @@ export default function Login() {
     <div className="min-h-screen grid md:grid-cols-2">
       <div className="hidden md:flex flex-col justify-between bg-[#1b1b18] text-white p-10">
         <div>
-          <img src={logoFluxar} alt="Fluxar Automóveis" className="h-9 w-auto" />
+          <img src={logoFluxarBranca} alt="Fluxar Automóveis" className="h-9 w-auto" />
         </div>
         <div>
           <h1 className="text-3xl font-extrabold mb-2">
@@ -52,8 +53,10 @@ export default function Login() {
         </p>
       </div>
 
-      <div className="flex items-center justify-center p-8">
+      <div className="flex items-center justify-center p-6 sm:p-8">
         <div className="w-full max-w-sm">
+          <img src={logoFluxar} alt="Fluxar Automóveis" className="h-8 w-auto mx-auto mb-6 md:hidden" />
+
           <h2 className="text-2xl font-extrabold text-center mb-1">Login</h2>
           <p className="text-sm text-gray-500 text-center mb-8">
             Entre com suas credenciais para continuar
@@ -97,7 +100,7 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between flex-wrap gap-2 text-sm">
               <label className="flex items-center gap-2 text-gray-600">
                 <input
                   type="checkbox"

@@ -83,7 +83,7 @@ export default function VeiculoForm({ valoresIniciais, aoSalvar, salvando }) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-white border border-gray-100 rounded-2xl p-6">
+      <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <h2 className="font-semibold mb-4">Dados básicos</h2>
         <div className="grid sm:grid-cols-3 gap-4">
           <Campo label="Marca" required value={dados.marca} onChange={(v) => set('marca', v)} />
@@ -95,9 +95,9 @@ export default function VeiculoForm({ valoresIniciais, aoSalvar, salvando }) {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-100 rounded-2xl p-6">
+      <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <h2 className="font-semibold mb-4">Mecânica</h2>
-        <div className="grid sm:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <Selecao label="Combustível" value={dados.combustivel} onChange={(v) => set('combustivel', v)} opcoes={['Flex', 'Gasolina', 'Álcool', 'Elétrico']} />
           <Selecao label="Câmbio" value={dados.cambio} onChange={(v) => set('cambio', v)} opcoes={['Manual', 'Automático']} />
           <Campo label="Portas" required type="number" value={dados.portas} onChange={(v) => set('portas', v)} />
@@ -105,7 +105,7 @@ export default function VeiculoForm({ valoresIniciais, aoSalvar, salvando }) {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-100 rounded-2xl p-6">
+      <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <h2 className="font-semibold mb-4">Preço e status</h2>
         <div className="grid sm:grid-cols-2 gap-4 mb-4">
           <Campo label="Preço (R$)" required type="number" value={dados.preco} onChange={(v) => set('preco', v)} />
@@ -120,7 +120,7 @@ export default function VeiculoForm({ valoresIniciais, aoSalvar, salvando }) {
             ]}
           />
         </div>
-        <div className="flex gap-6">
+        <div className="flex flex-wrap gap-4 sm:gap-6">
           <label className="flex items-center gap-2 text-sm text-gray-700">
             <input type="checkbox" checked={dados.destaque} onChange={(e) => set('destaque', e.target.checked)} className="accent-brand" />
             Marcar como destaque
@@ -132,7 +132,7 @@ export default function VeiculoForm({ valoresIniciais, aoSalvar, salvando }) {
         </div>
       </div>
 
-      <div className="bg-white border border-gray-100 rounded-2xl p-6">
+      <div className="bg-white border border-gray-100 rounded-2xl p-4 sm:p-6">
         <h2 className="font-semibold mb-4">Descrição e opcionais</h2>
         <label className="block text-sm font-medium mb-1.5">Descrição</label>
         <textarea
@@ -156,7 +156,7 @@ export default function VeiculoForm({ valoresIniciais, aoSalvar, salvando }) {
       <button
         type="submit"
         disabled={salvando}
-        className="bg-brand text-white font-semibold px-6 py-3 rounded-full hover:brightness-95 transition disabled:opacity-60"
+        className="w-full sm:w-auto bg-brand text-white font-semibold px-6 py-3 rounded-full hover:brightness-95 transition disabled:opacity-60"
       >
         {salvando ? 'Salvando...' : 'Salvar veículo'}
       </button>

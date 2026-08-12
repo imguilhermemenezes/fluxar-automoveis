@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Car, User, LogOut } from 'lucide-react';
+import { Home, Car, User, LogOut, Menu, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import logoFluxar from '../../assets/logo-fluxar.png';
 
@@ -12,12 +13,52 @@ const links = [
 export default function LayoutAdmin({ children }) {
   const { usuario, logout } = useAuth();
   const location = useLocation();
+  const [menuAberto, setMenuAberto] = useState(false);
+
+  // Fecha o menu automaticamente sempre que a rota mudar
+  useEffect(() => {
+    setMenuAberto(false);
+  }, [location.pathname]);
 
   return (
-    <div className="h-screen flex">
-      <aside className="w-56 bg-white border-r border-gray-100 flex flex-col shrink-0 overflow-y-auto">
-        <div className="p-6">
+    <div className="h-screen flex flex-col md:flex-row">
+      {/* Barra superior - só aparece no mobile */}
+      <header className="md:hidden relative flex items-center justify-center px-4 h-16 border-b border-gray-100 bg-white shrink-0">
+        <button
+          type="button"
+          onClick={() => setMenuAberto(true)}
+          aria-label="Abrir menu"
+          className="absolute left-4 p-2 text-gray-700"
+        >
+          <Menu size={22} />
+        </button>
+        <img src={logoFluxar} alt="Fluxar Automóveis" className="h-8 w-auto" />
+      </header>
+
+      {/* Fundo escurecido atrás do menu, só no mobile e só quando aberto */}
+      {menuAberto && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/40 z-40"
+          onClick={() => setMenuAberto(false)}
+        />
+      )}
+
+      {/* Sidebar - fixa e deslizante no mobile, estática no desktop */}
+      <aside
+        className={`fixed md:static inset-y-0 left-0 z-50 w-56 bg-white border-r border-gray-100 flex flex-col shrink-0 overflow-y-auto transition-transform duration-300 ease-in-out md:translate-x-0 ${
+          menuAberto ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div className="p-6 flex items-center justify-between">
           <img src={logoFluxar} alt="Fluxar Automóveis" className="h-9 w-auto" />
+          <button
+            type="button"
+            onClick={() => setMenuAberto(false)}
+            aria-label="Fechar menu"
+            className="md:hidden text-gray-500"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         <nav className="flex-1 px-3 space-y-1">

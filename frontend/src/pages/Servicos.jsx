@@ -59,6 +59,24 @@ const CAMPOS_VAZIOS = {
   observacoes: '',
 };
 
+const formatarTelefone = (valor) => {
+  const numeros = valor.replace(/\D/g, '').slice(0, 11);
+  if (numeros.length === 0) return '';
+  if (numeros.length <= 2) return `(${numeros}`;
+  if (numeros.length <= 3) return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+  if (numeros.length <= 7) return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 3)} ${numeros.slice(3)}`;
+  return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 3)} ${numeros.slice(3, 7)}-${numeros.slice(7, 11)}`;
+};
+
+const formatarMoeda = (valor) => {
+  const numeros = valor.replace(/\D/g, '');
+  if (!numeros) return '';
+  const numero = Number(numeros) / 100;
+  return numero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+};
+
+const formatarAno = (valor) => valor.replace(/\D/g, '').slice(0, 4);
+
 export default function Servicos() {
   const configuracoes = useConfiguracoes();
   const formRef = useRef(null);
@@ -92,7 +110,7 @@ export default function Servicos() {
       `Veículo: ${veiculo}`,
       campos.km && `Quilometragem: ${campos.km} Km`,
       campos.placa && `Placa: ${campos.placa}`,
-      campos.valor && `Valor desejado: R$ ${campos.valor}`,
+      campos.valor && `Valor desejado: ${campos.valor}`,
       campos.observacoes && `Observações: ${campos.observacoes}`,
     ]
       .filter(Boolean)
@@ -254,7 +272,7 @@ export default function Servicos() {
             <form onSubmit={enviar} className="space-y-4">
               <div className="grid sm:grid-cols-3 gap-4">
                 <input required value={campos.nome} onChange={(e) => set('nome', e.target.value)} placeholder="Nome completo" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
-                <input required value={campos.telefone} onChange={(e) => set('telefone', e.target.value)} placeholder="Telefone / WhatsApp" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
+                <input required value={campos.telefone} onChange={(e) => set('telefone', formatarTelefone(e.target.value))} placeholder="Telefone / WhatsApp" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 <input type="email" value={campos.email} onChange={(e) => set('email', e.target.value)} placeholder="E-mail (opcional)" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
               </div>
 
@@ -265,12 +283,12 @@ export default function Servicos() {
               </div>
 
               <div className="grid sm:grid-cols-3 gap-4">
-                <input required type="number" value={campos.ano} onChange={(e) => set('ano', e.target.value)} placeholder="Ano" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
+                <input required type="text" inputMode="numeric" value={campos.ano} onChange={(e) => set('ano', formatarAno(e.target.value))} placeholder="Ano" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 <input required type="number" value={campos.km} onChange={(e) => set('km', e.target.value)} placeholder="Quilometragem" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
                 <input value={campos.placa} onChange={(e) => set('placa', e.target.value)} placeholder="Placa (opcional)" className="border border-gray-200 rounded-lg px-3 py-2 text-sm" />
               </div>
 
-              <input required type="number" value={campos.valor} onChange={(e) => set('valor', e.target.value)} placeholder="Valor desejado (R$)" className="w-full sm:w-1/3 border border-gray-200 rounded-lg px-3 py-2 text-sm" />
+              <input required type="text" inputMode="numeric" value={campos.valor} onChange={(e) => set('valor', formatarMoeda(e.target.value))} placeholder="R$ 0,00" className="w-full sm:w-1/3 border border-gray-200 rounded-lg px-3 py-2 text-sm" />
 
               <textarea value={campos.observacoes} onChange={(e) => set('observacoes', e.target.value)} placeholder="Observações (opcional)" rows={3} className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm" />
 

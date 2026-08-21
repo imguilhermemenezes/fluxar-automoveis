@@ -11,6 +11,8 @@ const FAIXAS_KM = [
 const COMBUSTIVEIS = ['Flex', 'Gasolina', 'Álcool', 'Elétrico'];
 const CAMBIOS = ['Automático', 'Manual'];
 
+const formatarAno = (valor) => valor.replace(/\D/g, '').slice(0, 4);
+
 export default function Filtros({ filtros, onChange, onAplicar, onLimpar }) {
   const [aberto, setAberto] = useState(false);
 
@@ -100,16 +102,18 @@ export default function Filtros({ filtros, onChange, onAplicar, onLimpar }) {
             <label className="block text-sm font-medium mb-1.5">Ano</label>
             <div className="flex gap-2">
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 value={filtros.ano_min}
-                onChange={(e) => set('ano_min', e.target.value)}
+                onChange={(e) => set('ano_min', formatarAno(e.target.value))}
                 placeholder="De"
                 className="w-1/2 border border-gray-200 rounded-lg px-3 py-2 text-sm"
               />
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
                 value={filtros.ano_max}
-                onChange={(e) => set('ano_max', e.target.value)}
+                onChange={(e) => set('ano_max', formatarAno(e.target.value))}
                 placeholder="Até"
                 className="w-1/2 border border-gray-200 rounded-lg px-3 py-2 text-sm"
               />
